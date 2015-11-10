@@ -1,0 +1,7 @@
+[DEFAULT]
+git_gc = git gc "$@"
+jobs = 5
+
+include = cat ~/.config/mr/config.d/*
+include = cat ~/.src/*.mrconfig
+

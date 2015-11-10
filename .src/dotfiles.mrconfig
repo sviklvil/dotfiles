@@ -1,0 +1,26 @@
+[$HOME/.src/dircolors-solarized]
+checkout = git clone 'https://github.com/seebi/dircolors-solarized.git' 'dircolors-solarized'
+
+[$HOME/.src/myrepos]
+checkout = git clone 'https://github.com/joeyh/myrepos.git' 'myrepos'
+
+[$HOME/.src/vcsh]
+checkout = git clone 'https://github.com/RichiH/vcsh.git' 'vcsh'
+
+[$HOME/.oh-my-zsh]
+checkout = git clone 'https://github.com/robbyrussell/oh-my-zsh.git' '.oh-my-zsh'
+
+[$HOME/.vim/bundle/command-t]
+checkout = git clone 'https://github.com/wincent/command-t.git' 'command-t'
+
+[$HOME/.vim/bundle/L9]
+checkout = git clone 'https://github.com/vim-scripts/L9.git' 'L9'
+
+[$HOME/.vim/bundle/vim-colors-solarized]
+checkout = git clone 'https://github.com/altercation/vim-colors-solarized.git' 'vim-colors-solarized'
+
+[$HOME/.vim/bundle/vim-fugitive]
+checkout = git clone 'https://github.com/tpope/vim-fugitive.git' 'vim-fugitive'
+
+[$HOME/.vim/bundle/Vundle.vim]
+checkout = git clone 'https://github.com/VundleVim/Vundle.vim.git' 'Vundle.vim'
