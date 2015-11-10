@@ -4,6 +4,7 @@
 !/.config/mr/available.d
 !/.config/mr/available.d/dotfiles.vcsh
 !/.config/mr/available.d/dotfiles_cygwin.vcsh
+!/.config/mr/available.d/dotfiles_gentoo.vcsh
 !/.config/mr/config.d
 !/.config/mr/config.d/dotfiles.vcsh
 !/.dircolors
