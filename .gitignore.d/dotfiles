@@ -11,7 +11,7 @@
 !/.gitignore.d/dotfiles
 !/.mrconfig
 !/.src
-!/.src/.mrconfig.dotfiles
+!/.src/dotfiles.mrconfig
 !/.vimrc
 !/.zshrc
 !/bin
