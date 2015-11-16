@@ -41,22 +41,42 @@ check_requirements() {
 	return $status
 }
 
+bootstrap() {
+	mkdir -p ~/bin ~/.src
+
+	if [ -d ~/.src/vcsh && -d ~/.src/vcsh/.git ]; then
+		git -C ~/.src/vcsh pull
+	else
+		git clone https://github.com/RichiH/vcsh.git ~/.src/vcsh
+	fi
+	VCSH=~/.src/vcsh/vcsh
+
+	if [ -d ~/.src/myrepos && -d ~/.src/myrepos/.git ]; then
+		git -C ~/.src/myrepos pull
+	else
+		git clone https://github.com/joeyh/myrepos.git ~/.src/myrepos
+	fi
+	MR=~/.src/myrepos/mr
+}
+
 main() {
 	set_colors
 	# Only enable exit-on-error after the non-critical colorization stuff,
 	# which may fail on systems lacking tput or terminfo (in Cygwin provided by ncurses package)
 	set -e
 	check_requirements || exit $?
+	bootstrap || exit $?
 
-	mkdir -p ~/bin ~/.src
-
-	git clone https://github.com/RichiH/vcsh.git ~/.src/vcsh
-	git clone https://github.com/joeyh/myrepos.git ~/.src/myrepos
-
-	~/.src/vcsh/vcsh clone https://github.com/sviklvil/dotfiles.git
+	$VCSH clone https://github.com/sviklvil/dotfiles.git
+	if [ $? = 10 ]; then
+		$VCSH dotfiles pull
+	fi
 
 	if [ "`uname -o`" = "Cygwin" ]; then
-		~/.src/vcsh/vcsh clone https://github.com/sviklvil/dotfiles_cygwin.git
+		$VCSH clone https://github.com/sviklvil/dotfiles_cygwin.git
+		if [ $? = 10 ]; then
+			$VCSH dotfiles_cygwin pull
+		fi
 	elif [ "`uname -o`" = "GNU/Linux" ]; then
 		# http://www.freedesktop.org/software/systemd/man/os-release.html
 		if [ -f "/etc/os-release" ]; then
@@ -65,10 +85,14 @@ main() {
 			. "/usr/lib/os-release"
 		fi
 		if [ -n "$ID" && "$ID" = "gentoo" ]; then
-			~/.src/vcsh/vcsh clone https://github.com/sviklvil/dotfiles_gentoo.git
+			$VCSH clone https://github.com/sviklvil/dotfiles_gentoo.git
+			if [ $? = 10 ]; then
+				$VCSH dotfiles_gentoo pull
+			fi
 		fi
 	fi
-	~/.src/myrepos/mr checkout
+	# At this stage we also get all mrconfig files (from dotfiles* repos) so we can just rely on "mr checkout"
+	$MR checkout
 	echo "${GREEN}All dotfiles* and dependant upstream repos checked out.${NORMAL}"
 }
 
