@@ -41,6 +41,12 @@ check_requirements() {
 	return $status
 }
 
+backup_file() {
+	if [ -f "$1" ]; then
+		mv -f "$1" "${1}.orig"
+	fi
+}
+
 bootstrap() {
 	mkdir -p ~/bin ~/.src
 
@@ -59,6 +65,39 @@ bootstrap() {
 	MR=~/.src/myrepos/mr
 }
 
+get_dotfiles() {
+	local repo_name="dotfiles"
+	if [ "`vcsh list|grep -w $repo_name`" = "$repo_name" ]; then
+		$VCSH $repo_name pull
+	else
+		backup_file ~/.dircolors
+		backup_file ~/.mrconfig
+		backup_file ~/.vimrc
+		backup_file ~/.zshrc
+		$VCSH clone https://github.com/sviklvil/${repo_name}.git
+	fi
+}
+
+get_dotfiles_cygwin() {
+	local repo_name="dotfiles_cygwin"
+	if [ "`vcsh list|grep -w $repo_name`" = "$repo_name" ]; then
+		$VCSH $repo_name pull
+	else
+		backup_file ~/.minttyrc
+		$VCSH clone https://github.com/sviklvil/${repo_name}.git
+	fi
+}
+
+get_dotfiles_gentoo() {
+	local repo_name="dotfiles_gentoo"
+	if [ "`vcsh list|grep -w $repo_name`" = "$repo_name" ]; then
+		$VCSH $repo_name pull
+	else
+		# nothing to backup atm.
+		$VCSH clone https://github.com/sviklvil/${repo_name}.git
+	fi
+}
+
 main() {
 	set_colors
 	# Only enable exit-on-error after the non-critical colorization stuff,
@@ -67,16 +106,10 @@ main() {
 	check_requirements || exit $?
 	bootstrap || exit $?
 
-	$VCSH clone https://github.com/sviklvil/dotfiles.git
-	if [ $? = 10 ]; then
-		$VCSH dotfiles pull
-	fi
+	get_dotfiles
 
 	if [ "`uname -o`" = "Cygwin" ]; then
-		$VCSH clone https://github.com/sviklvil/dotfiles_cygwin.git
-		if [ $? = 10 ]; then
-			$VCSH dotfiles_cygwin pull
-		fi
+		get_dotfiles_cygwin
 	elif [ "`uname -o`" = "GNU/Linux" ]; then
 		# http://www.freedesktop.org/software/systemd/man/os-release.html
 		if [ -f "/etc/os-release" ]; then
@@ -85,10 +118,7 @@ main() {
 			. "/usr/lib/os-release"
 		fi
 		if [ -n "$ID" && "$ID" = "gentoo" ]; then
-			$VCSH clone https://github.com/sviklvil/dotfiles_gentoo.git
-			if [ $? = 10 ]; then
-				$VCSH dotfiles_gentoo pull
-			fi
+			get_dotfiles_gentoo
 		fi
 	fi
 	# At this stage we also get all mrconfig files (from dotfiles* repos) so we can just rely on "mr checkout"
