@@ -50,14 +50,14 @@ backup_file() {
 bootstrap() {
 	mkdir -p ~/bin ~/.src
 
-	if [ -d ~/.src/vcsh && -d ~/.src/vcsh/.git ]; then
+	if [ -d ~/.src/vcsh ] && [ -d ~/.src/vcsh/.git ]; then
 		git -C ~/.src/vcsh pull
 	else
 		git clone https://github.com/RichiH/vcsh.git ~/.src/vcsh
 	fi
 	VCSH=~/.src/vcsh/vcsh
 
-	if [ -d ~/.src/myrepos && -d ~/.src/myrepos/.git ]; then
+	if [ -d ~/.src/myrepos ] && [ -d ~/.src/myrepos/.git ]; then
 		git -C ~/.src/myrepos pull
 	else
 		git clone https://github.com/joeyh/myrepos.git ~/.src/myrepos
@@ -117,7 +117,7 @@ main() {
 		elif [ -f "/usr/lib/os-release" ]; then
 			. "/usr/lib/os-release"
 		fi
-		if [ -n "$ID" && "$ID" = "gentoo" ]; then
+		if [ -n "$ID" ] && [ "$ID" = "gentoo" ]; then
 			get_dotfiles_gentoo
 		fi
 	fi
