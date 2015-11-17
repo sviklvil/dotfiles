@@ -60,7 +60,7 @@ bootstrap() {
 	if [ -d ~/.src/myrepos ] && [ -d ~/.src/myrepos/.git ]; then
 		git -C ~/.src/myrepos pull
 	else
-		git clone https://github.com/joeyh/myrepos.git ~/.src/myrepos
+		git clone https://github.com/sviklvil/myrepos.git ~/.src/myrepos
 	fi
 	MR=~/.src/myrepos/mr
 }
