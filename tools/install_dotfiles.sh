@@ -67,7 +67,7 @@ bootstrap() {
 
 get_dotfiles() {
 	local repo_name="dotfiles"
-	if [ "`vcsh list|grep -w $repo_name`" = "$repo_name" ]; then
+	if [ "`$VCSH list|grep -w $repo_name`" = "$repo_name" ]; then
 		$VCSH $repo_name pull
 	else
 		backup_file ~/.dircolors
@@ -80,7 +80,7 @@ get_dotfiles() {
 
 get_dotfiles_cygwin() {
 	local repo_name="dotfiles_cygwin"
-	if [ "`vcsh list|grep -w $repo_name`" = "$repo_name" ]; then
+	if [ "`$VCSH list|grep -w $repo_name`" = "$repo_name" ]; then
 		$VCSH $repo_name pull
 	else
 		backup_file ~/.minttyrc
@@ -90,7 +90,7 @@ get_dotfiles_cygwin() {
 
 get_dotfiles_gentoo() {
 	local repo_name="dotfiles_gentoo"
-	if [ "`vcsh list|grep -w $repo_name`" = "$repo_name" ]; then
+	if [ "`$VCSH list|grep -w $repo_name`" = "$repo_name" ]; then
 		$VCSH $repo_name pull
 	else
 		# nothing to backup atm.
