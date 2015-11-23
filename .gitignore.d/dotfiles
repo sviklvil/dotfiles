@@ -11,6 +11,10 @@
 !/.gitignore.d
 !/.gitignore.d/dotfiles
 !/.mrconfig
+!/.oh-my-zsh
+!/.oh-my-zsh/custom
+!/.oh-my-zsh/custom/themes
+!/.oh-my-zsh/custom/themes/sviklvil.zsh-theme
 !/.src
 !/.src/dotfiles.mrconfig
 !/.vimrc
