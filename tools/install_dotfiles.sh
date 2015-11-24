@@ -26,6 +26,11 @@ set_colors() {
 check_requirements() {
 	local status=0
 
+	# Prevent insecure permissions.
+	# Note that this will be ignored under Cygwin by default, as Windows ACLs take
+	# precedence over umasks except for filesystems mounted with option "noacl".
+	umask g-w,o-w
+
 	if ! which git >/dev/null 2>&1; then
 		echo "${RED}Error: git is not installed!${NORMAL}"
 		status=1

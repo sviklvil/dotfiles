@@ -7,14 +7,13 @@
 !/.config/mr/available.d/dotfiles_gentoo.vcsh
 !/.config/mr/config.d
 !/.config/mr/config.d/dotfiles.vcsh
+!/.config/zsh
+!/.config/zsh/themes
+!/.config/zsh/themes/sviklvil.zsh-theme
 !/.dircolors
 !/.gitignore.d
 !/.gitignore.d/dotfiles
 !/.mrconfig
-!/.oh-my-zsh
-!/.oh-my-zsh/custom
-!/.oh-my-zsh/custom/themes
-!/.oh-my-zsh/custom/themes/sviklvil.zsh-theme
 !/.src
 !/.src/dotfiles.mrconfig
 !/.vimrc

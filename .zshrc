@@ -51,12 +51,14 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+source $ZSH/oh-my-zsh.sh
+
 # User configuration
 
-export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem"
-# export MANPATH="/usr/local/man:$MANPATH"
+eval `dircolors ~/.dircolors`
 
-source $ZSH/oh-my-zsh.sh
+# export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem"
+# export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -83,4 +85,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-eval `dircolors ~/.dircolors`
+
+if [ "`uname -o`" = "Cygwin" ] && [ -f "$HOME/.config/env.d/dotfiles_cygwin" ]; then
+	. $HOME/.config/env.d/dotfiles_cygwin
+fi
