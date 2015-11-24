@@ -21,7 +21,5 @@
 !/bin
 !/bin/mr
 !/bin/vcsh
-!/doc
-!/doc/dotfiles.md
 !/tools
 !/tools/install_dotfiles.sh
