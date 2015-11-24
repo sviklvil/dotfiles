@@ -57,7 +57,7 @@ source $ZSH/oh-my-zsh.sh
 
 eval `dircolors ~/.dircolors`
 
-# export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem"
+[[ -d "$HOME/bin" ]] && export PATH="$PATH:$HOME/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -85,7 +85,7 @@ eval `dircolors ~/.dircolors`
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
 if [ "`uname -o`" = "Cygwin" ] && [ -f "$HOME/.config/env.d/dotfiles_cygwin" ]; then
-	. $HOME/.config/env.d/dotfiles_cygwin
+	# Overwrites PATH variable because Windows PATH variable is usually overbloated
+	source $HOME/.config/env.d/dotfiles_cygwin
 fi
