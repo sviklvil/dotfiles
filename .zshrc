@@ -1,8 +1,8 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.config/zsh
+ZSH_CUSTOM="$HOME/.config/zsh"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -49,9 +49,9 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins="(git)"
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 # User configuration
 
@@ -85,7 +85,21 @@ eval `dircolors ~/.dircolors`
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-if [ "`uname -o`" = "Cygwin" ] && [ -f "$HOME/.config/env.d/dotfiles_cygwin" ]; then
+#
+# Common stuff ends here, now detect and load platform specific zshrc file
+#
+
+if [ "`uname -o`" = "Cygwin" ] && [ -f "$ZSH_CUSTOM/dotfiles_cygwin.zshrc" ]; then
 	# Overwrites PATH variable because Windows PATH variable is usually overbloated
-	source $HOME/.config/env.d/dotfiles_cygwin
+	source "$ZSH_CUSTOM/dotfiles_cygwin.zshrc"
+elif [ "`uname -o`" = "GNU/Linux" ]; then
+	# http://www.freedesktop.org/software/systemd/man/os-release.html
+	if [ -f "/etc/os-release" ]; then
+		source "/etc/os-release"
+	elif [ -f "/usr/lib/os-release" ]; then
+		source "/usr/lib/os-release"
+	fi
+	if [ -n "$ID" ] && [ -f "$ZSH_CUSTOM/dotfiles_${ID}.zshrc" ]; then
+		source "$ZSH_CUSTOM/dotfiles_${ID}.zshrc"
+	fi
 fi
